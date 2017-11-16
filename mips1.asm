@@ -52,42 +52,42 @@ loop:
 	beq $t2, 10, end_loop			#If new line end loop.
 	beq $t2, 0, end_loop			#If null end loop.
 	
-check_lower_max:
+check_lower_maximum:
 
-	blt $t2, 103, check_lower_min		#If within max then jump to check if it is in the min.
+	blt $t2, 103, check_lower_minimum		#If within max then jump to check if it is in the min.
 	j invalid_hex				#If outside then it is invalid.
 	
-check_lower_min:
+check_lower_minimum:
 
 	bgt $t2, 96, store_lower_value		#If withn min then jump to store decimal value.
-	j check_upper_max			#If less than min then check if uppercase.
+	j check_upper_maximum			#If less than min then check if uppercase.
 	
 store_lower_value:
 
 	addi $t3, $t2, -87			#Store decimal in $t3.
 	j increment				#Jump to next character.
 	
-check_upper_max:
+check_upper_maximum:
 	
-	blt $t2, 71, check_upper_min		#If withn min then jump to store decimal value.
+	blt $t2, 71, check_upper_minimum		#If withn min then jump to store decimal value.
 	j invalid_hex				#If outside then it is invalid
 	
-check_upper_min:
+check_upper_minimum:
 
 	bgt $t2, 64, store_upper_value		#If withn min then jump to store decimal value.
-	j check_num_max				#If less than min then check if number.
+	j check_number_maximum				#If less than min then check if number.
 	
 store_upper_value:
 
 	addi $t3, $t2, -55			#Store decimal in $t3.
 	j increment				#Jump to next character.
 	
-check_num_max:
+check_number_maximum:
 
-	blt $t2, 58, check_num_min		#If within max then check min.
+	blt $t2, 58, check_number_minimum		#If within max then check min.
 	j invalid_hex				#If outside of max then invalid.
 	
-check_num_min:
+check_number_minimum:
 
 	bgt $t2, 47, store_num_value		#If within min then jump to store decimal value.
 	j invalid_hex				#If outside of min then invalid.				
